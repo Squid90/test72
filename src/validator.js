@@ -1,14 +1,14 @@
 export default class Validator {
-  constructor(name) {
-    this.name = name;
+  constructor(number) {
+    this.number = number;
   }
 
-  validateUsername() {
-    const accessSymbols = /^[A-Za-z0-9-_]+$/.test(this.name);
-    const startSymbols = /^[^-_0-9]/.test(this.name);
-    const endSymbols = /[^-_0-9]$/.test(this.name);
-    const repeatSymbols = !(/\d{4}/).test(this.name);
-
-    return accessSymbols && startSymbols && endSymbols && repeatSymbols;
+  validateNumber() {
+    const re = /[^0-9]/gi;
+    const clearNumber = (this.number.replace(re, ''));
+    const numberWithoutCode = clearNumber.substring(clearNumber.length - 10);
+    let codeCountry = clearNumber.substring(0, clearNumber.length - 10);
+    codeCountry = codeCountry === '8' ? codeCountry = '7' : codeCountry;
+    return `+${codeCountry}${numberWithoutCode}`;
   }
 }
